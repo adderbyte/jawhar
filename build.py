@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Rebuild index.html from the content/ folder.
-Usage:  python build.py            (images stay in content/, for hosting the folder)
-        python build.py --embed    (images inlined into one self-contained index.html)"""
-import json, base64, sys, mimetypes
+"""Rebuild the site into public/ from the content/ folder.
+Usage:  python build.py            (public/index.html + public/content/ with images and PDFs only)
+        python build.py --embed    (images inlined into public/index.html)
+Only public/ is published: build.py, template.html and the info.txt/text.txt files stay private."""
+import json, base64, sys, mimetypes, shutil
 from pathlib import Path
 ROOT = Path(__file__).parent; C = ROOT / 'content'; EMBED = '--embed' in sys.argv
 EXT = ('.jpg', '.jpeg', '.png', '.webp')
@@ -43,5 +44,10 @@ data = {'site': site,
         'books': items('isdarat/kutub', 'cover', True), 'journals': items('isdarat/majallat', 'cover', True),
         'programs': items('baramij', 'image'), 'authors': items('ashkhas/kuttab-wa-bahithun', 'photo'), 'team': items('ashkhas/fariq-al-amal', 'photo')}
 html = (ROOT / 'template.html').read_text(encoding='utf-8').replace('__DATA__', json.dumps(data, ensure_ascii=False).replace('</', '<\\/'))
-(ROOT / 'index.html').write_text(html, encoding='utf-8')
-print('index.html built:', {k: len(v) for k, v in data.items() if isinstance(v, list)})
+OUT = ROOT / 'public'; KEEP = EXT + ('.pdf',)
+shutil.rmtree(OUT, ignore_errors=True)
+def skip(d, names):   # publish images and PDFs only; skip info.txt, text.txt and _namadhij
+    return [n for n in names if ((Path(d) / n).is_file() and not n.lower().endswith(KEEP)) or ((Path(d) / n).is_dir() and n.startswith('_'))]
+shutil.copytree(C, OUT / 'content', ignore=skip)
+(OUT / 'index.html').write_text(html, encoding='utf-8')
+print('public/index.html built:', {k: len(v) for k, v in data.items() if isinstance(v, list)})
