@@ -77,7 +77,7 @@ body.guide .ph{outline:3px dashed var(--accent);outline-offset:-3px}body.guide .
 /* programs */
 .progs{display:grid;grid-template-columns:1fr 1fr;gap:26px}
 .prog{background:var(--brand);color:var(--on);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
-.prog .ph{aspect-ratio:16/8;border-radius:0}.prog .ph img{object-position:14% 50%}.prog div.b{padding:26px 28px 30px}
+.prog .ph{aspect-ratio:16/8;border-radius:0}.prog div.b{padding:26px 28px 30px}
 .prog h3{font-size:30px}.prog p{opacity:.9;margin:8px 0 18px}.prog .btn{border-color:currentColor;color:inherit}
 .prog .no{font:700 14px "IBM Plex Sans Arabic";color:var(--accent);filter:brightness(1.4);letter-spacing:.04em}
 @media(max-width:800px){.progs{grid-template-columns:1fr}}
@@ -113,11 +113,8 @@ footer ul{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:0;padd
 </head>
 <body>
 <!--
-HOW TO REPLACE CONTENT
-1. IMAGES: every striped box is a placeholder. In the <script> at the bottom, put a URL or path
-   (e.g. "images/book-1.jpg") in the IMG object using the slot's key. The button "دليل الاستبدال"
-   (bottom-left) shows each slot's key.
-2. TEXT: edit the ARTICLES, ITEMS (books + journals), PROGRAMS, AUTHORS, TEAM and CONTACT arrays.
+THIS FILE IS GENERATED. Do not edit it by hand: edit the folders in content/ and run:  python build.py
+(see README.txt). Layout and styling live in template.html.
 -->
 <header>
  <div class="wrap bar">
@@ -136,7 +133,7 @@ HOW TO REPLACE CONTENT
 </header>
 
 <main id="top">
-<div class="ph herobig" data-img="banner"><span><b>banner</b>الصورة الرئيسية 1280×426</span></div>
+<div class="ph herobig" data-img="banner"><span><b>site/banner.jpg</b>الصورة الرئيسية 1920×640</span></div>
 <div class="wrap"><div class="intro">
  <div>
   <p class="kick">منصة علمية للنشر والتراث الإفريقي</p>
@@ -215,91 +212,45 @@ HOW TO REPLACE CONTENT
 <button class="tg" id="guideBtn" aria-pressed="false">دليل الاستبدال</button>
 
 <script>
-/* ---------- EDIT HERE ---------- */
-const IMG = {
-  "banner": "images/banner.jpg",
-  "logo": "images/logo.jpg",
-  "program-1": "images/manuscripts.jpg",
-  "program-2": "images/banner2.jpg",
-  "article-1": "",
-  "article-2": "",
-  "article-3": "",
-  "article-4": "",
-  "article-5": "",
-  "pub-1": "",
-  "pub-2": "",
-  "pub-3": "",
-  "pub-4": "",
-  "pub-5": "",
-  "pub-6": "",
-  "author-1": "",
-  "author-2": "",
-  "author-3": "",
-  "author-4": "",
-  "team-1": "",
-  "team-2": "",
-  "team-3": "",
-  "team-4": "",
-};
-const ARTICLES = [
- {t:"عنوان المقال الرئيسي: دراسة في التراث المخطوط",d:"17 أكتوبر 2026",a:"اسم الباحث",tag:"التراث",x:"ملخص قصير للمقال يعرّف بالموضوع والمنهج وأهم النتائج، في سطرين أو ثلاثة.",u:"#"},
- {t:"عنوان المقال الثاني",d:"16 أكتوبر 2026",a:"اسم الباحث",tag:"التاريخ",u:"#"},
- {t:"عنوان المقال الثالث",d:"13 أكتوبر 2026",a:"اسم الباحث",tag:"الفكر",u:"#"},
- {t:"عنوان المقال الرابع",d:"9 أكتوبر 2026",a:"اسم الباحث",tag:"اللغة",u:"#"},
- {t:"عنوان المقال الخامس",d:"2 أكتوبر 2026",a:"اسم الباحث",tag:"التراث",u:"#"},
- {t:"عنوان المقال السادس",d:"28 سبتمبر 2026",a:"اسم الباحث",tag:"الحضارة",u:"#"},
- {t:"عنوان المقال السابع",d:"21 سبتمبر 2026",a:"اسم الباحث",tag:"التاريخ",u:"#"},
-];
-const ITEMS = [
- {type:"book",t:"عنوان الكتاب الأول",a:"اسم المؤلف",y:2026,latest:1,u:"#",dl:"#"},
- {type:"journal",t:"مجلة جوهرة الصحراء، العدد 3",a:"هيئة التحرير",y:2026,latest:1,u:"#",dl:"#"},
- {type:"book",t:"عنوان الكتاب الثاني",a:"اسم المؤلف",y:2025,latest:1,u:"#",dl:"#"},
- {type:"book",t:"عنوان الكتاب الثالث",a:"اسم المحقق",y:2025,latest:0,u:"#",dl:"#"},
- {type:"journal",t:"مجلة جوهرة الصحراء، العدد 2",a:"هيئة التحرير",y:2025,latest:0,u:"#",dl:"#"},
- {type:"journal",t:"مجلة جوهرة الصحراء، العدد 1",a:"هيئة التحرير",y:2025,latest:0,u:"#",dl:"#"},
-];
-const PROGRAMS = [
- {t:"ذاكرة الإمبراطوريات الإفريقية",x:"برنامج علمي توثيقي يستعيد تاريخ الإمبراطوريات الإفريقية الكبرى، كغانا ومالي وسونغاي، من خلال المصادر المخطوطة والدراسات الحديثة، بإشراف باحثين متخصصين."},
- {t:"حكايات جوهرة الصحراء",x:"سلسلة سردية مبسّطة تقرّب السير والأحداث والتراث من القارئ العام بلغة سلسة، مع الحفاظ على الدقة العلمية والإحالة إلى المصادر."},
-];
-const AUTHORS = [
- {n:"اسم الأستاذ الدكتور",r:"أستاذ دكتور",b:"نبذة قصيرة عن التخصص والاهتمامات البحثية.",w:["عنوان مؤلَّف منشور","عنوان بحث منشور في مجلة محكّمة"]},
- {n:"اسم الأستاذ المشارك",r:"أستاذ مشارك",b:"نبذة قصيرة عن التخصص والاهتمامات البحثية.",w:["عنوان مؤلَّف منشور","مشاركة في مؤتمر علمي"]},
- {n:"اسم باحث الدكتوراه",r:"باحث دكتوراه",b:"نبذة قصيرة عن موضوع الأطروحة والاهتمامات.",w:["عنوان مقال منشور"]},
- {n:"اسم طالب الدراسات العليا",r:"دراسات عليا",b:"نبذة قصيرة عن مجال البحث.",w:["عنوان مقال منشور"]},
-];
-const TEAM = [["رئيس الجمعية"],["رئيس التحرير"],["منسق البرامج"],["مسؤول الإصدارات"]];
-const CONTACT = [
- {label:"name@example.com",href:"mailto:name@example.com"},
- {label:"WhatsApp +000 000 000 000",href:"https://wa.me/000000000000"},
- {label:"Tel +000 000 000 000",href:"tel:+000000000000"},
-];
-/* ---------- rendering ---------- */
+const D = {"site": {"email": "name@example.com", "whatsapp": "000000000000", "phone": "+000000000000", "logo": "content/site/logo.jpg", "banner": "content/site/banner.jpg"}, "articles": [{"title": "عنوان المقال الرئيسي: دراسة في التراث المخطوط", "author": "اسم الباحث", "date": "2026-10-17", "topic": "التراث", "summary": "ملخص قصير للمقال يعرّف بالموضوع والمنهج وأهم النتائج، في سطرين أو ثلاثة.", "dir": "maqalat/2026-10-17-maqala-1", "img": "content/maqalat/2026-10-17-maqala-1/image.jpg"}, {"title": "عنوان المقال الثاني", "author": "اسم الباحث", "date": "2026-10-16", "topic": "التاريخ", "summary": "ملخص قصير للمقال.", "dir": "maqalat/2026-10-16-maqala-2", "img": "content/maqalat/2026-10-16-maqala-2/image.jpg"}, {"title": "عنوان المقال الثالث", "author": "اسم الباحث", "date": "2026-10-13", "topic": "الفكر", "summary": "ملخص قصير للمقال.", "dir": "maqalat/2026-10-13-maqala-3", "img": "content/maqalat/2026-10-13-maqala-3/image.jpg"}, {"title": "عنوان المقال الرابع", "author": "اسم الباحث", "date": "2026-10-09", "topic": "اللغة", "summary": "ملخص قصير للمقال.", "dir": "maqalat/2026-10-09-maqala-4", "img": "content/maqalat/2026-10-09-maqala-4/image.jpg"}, {"title": "عنوان المقال الخامس", "author": "اسم الباحث", "date": "2026-10-02", "topic": "التراث", "summary": "ملخص قصير للمقال.", "dir": "maqalat/2026-10-02-maqala-5", "img": "content/maqalat/2026-10-02-maqala-5/image.jpg"}, {"title": "عنوان المقال السادس", "author": "اسم الباحث", "date": "2026-09-28", "topic": "الحضارة", "summary": "ملخص قصير للمقال.", "dir": "maqalat/2026-09-28-maqala-6", "img": "content/maqalat/2026-09-28-maqala-6/image.jpg"}, {"title": "عنوان المقال السابع", "author": "اسم الباحث", "date": "2026-09-21", "topic": "التاريخ", "summary": "ملخص قصير للمقال.", "dir": "maqalat/2026-09-21-maqala-7", "img": "content/maqalat/2026-09-21-maqala-7/image.jpg"}], "books": [{"title": "عنوان الكتاب الأول", "author": "اسم المؤلف", "year": "2026", "latest": "yes", "summary": "وصف مختصر للكتاب يظهر في البطاقة.", "description": "وصف أطول للكتاب: محتواه، ومنهجه، وفئة قرائه.", "dir": "isdarat/kutub/kitab-1", "img": "content/isdarat/kutub/kitab-1/cover.jpg", "pdf": ""}, {"title": "عنوان الكتاب الثاني", "author": "اسم المؤلف", "year": "2025", "latest": "yes", "summary": "وصف مختصر للكتاب يظهر في البطاقة.", "description": "وصف أطول للكتاب: محتواه، ومنهجه، وفئة قرائه.", "dir": "isdarat/kutub/kitab-2", "img": "content/isdarat/kutub/kitab-2/cover.jpg", "pdf": ""}, {"title": "عنوان الكتاب الثالث", "author": "اسم المحقق", "year": "2025", "latest": "no", "summary": "وصف مختصر للكتاب يظهر في البطاقة.", "description": "وصف أطول للكتاب: محتواه، ومنهجه، وفئة قرائه.", "dir": "isdarat/kutub/kitab-3", "img": "content/isdarat/kutub/kitab-3/cover.jpg", "pdf": ""}], "journals": [{"title": "مجلة جوهرة الصحراء، العدد 1", "author": "هيئة التحرير", "year": "2026", "latest": "yes", "summary": "ملخص محتويات العدد.", "dir": "isdarat/majallat/adad-01", "img": "content/isdarat/majallat/adad-01/cover.jpg", "pdf": ""}, {"title": "مجلة جوهرة الصحراء، العدد 2", "author": "هيئة التحرير", "year": "2025", "latest": "no", "summary": "ملخص محتويات العدد.", "dir": "isdarat/majallat/adad-02", "img": "content/isdarat/majallat/adad-02/cover.jpg", "pdf": ""}, {"title": "مجلة جوهرة الصحراء، العدد 3", "author": "هيئة التحرير", "year": "2025", "latest": "no", "summary": "ملخص محتويات العدد.", "dir": "isdarat/majallat/adad-03", "img": "content/isdarat/majallat/adad-03/cover.jpg", "pdf": ""}], "programs": [{"title": "ذاكرة الإمبراطوريات الإفريقية", "description": "برنامج علمي توثيقي يستعيد تاريخ الإمبراطوريات الإفريقية الكبرى، كغانا ومالي وسونغاي، من خلال المصادر المخطوطة والدراسات الحديثة، بإشراف باحثين متخصصين.", "dir": "baramij/01-dhakirat-al-imbraturiyyat-al-ifriqiyya", "img": "content/baramij/01-dhakirat-al-imbraturiyyat-al-ifriqiyya/image.jpg"}, {"title": "حكايات جوهرة الصحراء", "description": "سلسلة سردية مبسّطة تقرّب السير والأحداث والتراث من القارئ العام بلغة سلسة، مع الحفاظ على الدقة العلمية والإحالة إلى المصادر.", "dir": "baramij/02-hikayat-jawharat-as-sahra", "img": "content/baramij/02-hikayat-jawharat-as-sahra/image.jpg"}], "authors": [{"name": "اسم الأستاذ الدكتور", "role": "أستاذ دكتور", "bio": "نبذة قصيرة عن التخصص والاهتمامات البحثية.", "works": ["عنوان مؤلَّف منشور", "عنوان بحث منشور في مجلة محكّمة"], "dir": "ashkhas/kuttab-wa-bahithun/01-ustadh-duktur", "img": "content/ashkhas/kuttab-wa-bahithun/01-ustadh-duktur/photo.jpg"}, {"name": "اسم الأستاذ المشارك", "role": "أستاذ مشارك", "bio": "نبذة قصيرة عن التخصص والاهتمامات البحثية.", "works": ["عنوان مؤلَّف منشور", "مشاركة في مؤتمر علمي"], "dir": "ashkhas/kuttab-wa-bahithun/02-ustadh-musharik", "img": "content/ashkhas/kuttab-wa-bahithun/02-ustadh-musharik/photo.jpg"}, {"name": "اسم باحث الدكتوراه", "role": "باحث دكتوراه", "bio": "نبذة قصيرة عن موضوع الأطروحة والاهتمامات.", "works": ["عنوان مقال منشور"], "dir": "ashkhas/kuttab-wa-bahithun/03-bahith-duktura", "img": "content/ashkhas/kuttab-wa-bahithun/03-bahith-duktura/photo.jpg"}, {"name": "اسم طالب الدراسات العليا", "role": "دراسات عليا", "bio": "نبذة قصيرة عن مجال البحث.", "works": ["عنوان مقال منشور"], "dir": "ashkhas/kuttab-wa-bahithun/04-talib-dirasat-ulya", "img": "content/ashkhas/kuttab-wa-bahithun/04-talib-dirasat-ulya/photo.jpg"}], "team": [{"name": "اسم العضو", "position": "رئيس الجمعية", "dir": "ashkhas/fariq-al-amal/01-rais-al-jamiyya", "img": "content/ashkhas/fariq-al-amal/01-rais-al-jamiyya/photo.jpg"}, {"name": "اسم العضو", "position": "رئيس التحرير", "dir": "ashkhas/fariq-al-amal/02-rais-al-tahrir", "img": "content/ashkhas/fariq-al-amal/02-rais-al-tahrir/photo.jpg"}, {"name": "اسم العضو", "position": "منسق البرامج", "dir": "ashkhas/fariq-al-amal/03-munassiq-al-baramij", "img": "content/ashkhas/fariq-al-amal/03-munassiq-al-baramij/photo.jpg"}, {"name": "اسم العضو", "position": "مسؤول الإصدارات", "dir": "ashkhas/fariq-al-amal/04-masul-al-isdarat", "img": "content/ashkhas/fariq-al-amal/04-masul-al-isdarat/photo.jpg"}]};   /* generated from content/ by build.py */
 const $=s=>document.querySelector(s);
-const slot=(k,c,h)=>`<div class="ph ${c||''}" data-img="${k}">${IMG[k]?`<img src="${IMG[k]}" alt="" loading="lazy">`:''}<span><b>${k}</b>${h||''}</span></div>`;
-function fill(root){root.querySelectorAll('.ph[data-img]').forEach(el=>{const u=IMG[el.dataset.img];if(u&&!el.querySelector('img')){const i=document.createElement('img');i.src=u;i.alt='';el.prepend(i)}})}
-const A=ARTICLES;
-$('#featArt').innerHTML=`<a class="feat" href="${A[0].u}">${slot('article-1','','صورة المقال 1280×720')}<div class="b"><span class="tag">${A[0].tag}</span><h3>${A[0].t}</h3><p>${A[0].x}</p><div class="meta">${A[0].a} · ${A[0].d}</div></div></a>`;
-$('#artList').innerHTML=A.slice(1,5).map((a,i)=>`<a href="${a.u}">${slot('article-'+(i+2),'','')}<div><span class="tag">${a.tag}</span><h3>${a.t}</h3><div class="meta">${a.a} · ${a.d}</div></div></a>`).join('');
-$('#latestArts').innerHTML=A.slice(2).map(a=>`<a class="pub" href="${a.u}"><div><span class="tag">${a.tag}</span><h3>${a.t}</h3><div class="meta">${a.a} · ${a.d}</div></div></a>`).join('');
+const E=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const slot=(src,path,cls,hint)=>`<div class="ph ${cls||''}">${src?`<img src="${src}" alt="" loading="lazy">`:''}<span><b>${E(path)}</b>${hint||''}</span></div>`;
+const fmt=d=>{try{return new Date(d+'T12:00:00').toLocaleDateString('ar-EG-u-nu-latn',{day:'numeric',month:'long',year:'numeric'})}catch(e){return d}};
+document.querySelectorAll('.ph[data-img]').forEach(el=>{const u=D.site[el.dataset.img];if(u){const i=document.createElement('img');i.src=u;i.alt='';el.prepend(i)}});
+/* articles */
+const A=D.articles, meta=a=>`${E(a.author)} · ${fmt(a.date)}`;
+if(A[0]){
+ $('#featArt').innerHTML=`<a class="feat" href="#">${slot(A[0].img,A[0].dir+'/image.jpg','','1280×720')}<div class="b"><span class="tag">${E(A[0].topic)}</span><h3>${E(A[0].title)}</h3><p>${E(A[0].summary)}</p><div class="meta">${meta(A[0])}</div></div></a>`;
+ $('#artList').innerHTML=A.slice(1,5).map(a=>`<a href="#">${slot(a.img,a.dir+'/image.jpg','','')}<div><span class="tag">${E(a.topic)}</span><h3>${E(a.title)}</h3><div class="meta">${meta(a)}</div></div></a>`).join('');
+ $('#latestArts').innerHTML=A.slice(2).map(a=>`<a class="pub" href="#"><div><span class="tag">${E(a.topic)}</span><h3>${E(a.title)}</h3><div class="meta">${meta(a)}</div></div></a>`).join('');
+}
+/* publications */
+const ITEMS=[...D.books.map(b=>({...b,type:'book'})),...D.journals.map(j=>({...j,type:'journal'}))].sort((a,b)=>(b.year||0)-(a.year||0));
+const isL=it=>/^(yes|نعم|1|true)$/i.test(it.latest||'');
+const kind=it=>it.type=='book'?'كتاب':'مجلة';
 const TABS=[["latest","آخر الإصدارات"],["all","كل الإصدارات"],["book","الكتب"],["journal","المجلات"],["lib","مكتبة الإصدارات"]];
 let tab="latest";
-const card=(it,i)=>`<a class="pub" href="${it.u}">${slot('pub-'+(i+1),'','غلاف 600×800')}<div><span class="tag">${it.type=='book'?'كتاب':'مجلة'} · ${it.y}</span><h3>${it.t}</h3><div class="meta">${it.a}</div></div></a>`;
+const card=it=>`<a class="pub" href="${it.pdf||'#'}">${slot(it.img,it.dir+'/cover.jpg','','غلاف 900×1200')}<div><span class="tag">${kind(it)} · ${E(it.year)}</span><h3>${E(it.title)}</h3><div class="meta">${E(it.author)}</div></div></a>`;
 function pubs(){
  $('#tabs').innerHTML=TABS.map(([k,l])=>`<button role="tab" data-t="${k}" aria-selected="${k==tab}">${l}</button>`).join('');
- const all=ITEMS.map((it,i)=>[it,i]);let out;
- if(tab=='lib') out=`<div class="lib">${all.map(([it,i])=>`<div class="row">${slot('pub-'+(i+1),'','')}<div><span class="tag">${it.type=='book'?'كتاب':'مجلة'} · ${it.y}</span><h3>${it.t}</h3><div class="meta" style="margin:0">${it.a}</div></div><div class="btns"><a class="btn p" href="${it.u}">قراءة</a><a class="btn" href="${it.dl}">تحميل</a></div></div>`).join('')}</div>`;
- else{const f=all.filter(([it])=>tab=='latest'?it.latest:tab=='all'?1:it.type==tab);out=`<div class="grid">${f.map(([it,i])=>card(it,i)).join('')}</div>`}
- $('#pubOut').innerHTML=out;fill($('#pubOut'));
+ let out;
+ if(tab=='lib') out=`<div class="lib">${ITEMS.map(it=>`<div class="row">${slot(it.img,it.dir+'/cover.jpg','','')}<div><span class="tag">${kind(it)} · ${E(it.year)}</span><h3>${E(it.title)}</h3><div class="meta" style="margin:0">${E(it.author)}</div></div><div class="btns"><a class="btn p" href="${it.pdf||'#'}" target="_blank" rel="noopener">قراءة</a><a class="btn" href="${it.pdf||'#'}" download>تحميل</a></div></div>`).join('')}</div>`;
+ else out=`<div class="grid">${ITEMS.filter(it=>tab=='latest'?isL(it):tab=='all'?1:it.type==tab).map(card).join('')}</div>`;
+ $('#pubOut').innerHTML=out;
  $('#tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{tab=b.dataset.t;pubs()});
 }
 pubs();
 document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click',()=>{tab=a.dataset.tab;pubs()}));
-$('#progList').innerHTML=PROGRAMS.map((p,i)=>`<article class="prog" id="prog-${i+1}">${slot('program-'+(i+1),'','صورة البرنامج 1200×600')}<div class="b"><span class="no">البرنامج ${i+1}</span><h3>${p.t}</h3><p>${p.x}</p><a class="btn" href="#programs">تفاصيل البرنامج</a></div></article>`).join('');
-$('#bios').innerHTML=AUTHORS.map((p,i)=>`<article class="person">${slot('author-'+(i+1),'','صورة')}<h3>${p.n}</h3><small>${p.r}</small><p>${p.b}</p><details><summary>السيرة والمؤلفات</summary><ul>${p.w.map(w=>`<li>${w}</li>`).join('')}</ul></details></article>`).join('');
-$('#teamList').innerHTML=TEAM.map((t,i)=>`<div>${slot('team-'+(i+1),'','')}<div style="padding:0;border:0;background:none"><h4>اسم العضو</h4><span class="muted sm">${t[0]}</span></div></div>`).join('');
-$('#contactList').innerHTML=CONTACT.map(c=>`<a href="${c.href}">${c.label}</a>`).join('');
-fill(document);
+/* programs, people, contact */
+$('#progList').innerHTML=D.programs.map((p,i)=>`<article class="prog" id="prog-${i+1}">${slot(p.img,p.dir+'/image.jpg','','1200×600')}<div class="b"><span class="no">البرنامج ${i+1}</span><h3>${E(p.title)}</h3><p>${E(p.description)}</p><a class="btn" href="#programs">تفاصيل البرنامج</a></div></article>`).join('');
+$('#bios').innerHTML=D.authors.map(p=>`<article class="person">${slot(p.img,p.dir+'/photo.jpg','','400×400')}<h3>${E(p.name)}</h3><small>${E(p.role)}</small><p>${E(p.bio)}</p><details><summary>السيرة والمؤلفات</summary><ul>${[].concat(p.works||[]).map(w=>`<li>${E(w)}</li>`).join('')}</ul></details></article>`).join('');
+$('#teamList').innerHTML=D.team.map(t=>`<div>${slot(t.img,t.dir+'/photo.jpg','','')}<div style="padding:0;border:0;background:none"><h4>${E(t.name)}</h4><span class="muted sm">${E(t.position)}</span></div></div>`).join('');
+const S=D.site, CONTACT=[];
+if(S.email)CONTACT.push({label:S.email,href:'mailto:'+S.email});
+if(S.whatsapp)CONTACT.push({label:'WhatsApp +'+S.whatsapp.replace(/\D/g,''),href:'https://wa.me/'+S.whatsapp.replace(/\D/g,'')});
+if(S.phone)CONTACT.push({label:'Tel '+S.phone,href:'tel:'+S.phone.replace(/\s/g,'')});
+$('#contactList').innerHTML=CONTACT.map(c=>`<a href="${E(c.href)}">${E(c.label)}</a>`).join('');
 $('#guideBtn').onclick=e=>{const on=document.body.classList.toggle('guide');e.target.setAttribute('aria-pressed',on)};
 document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>$('#nav').classList.remove('open')));
 </script>

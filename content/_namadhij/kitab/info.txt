@@ -1,0 +1,8 @@
+# انسخ هذا المجلد إلى القسم المناسب وغيّر اسمه (حروف إنجليزية صغيرة وشرطات)
+# الملفات: cover.jpg (900x1200), book.pdf
+title:
+author:
+year:
+latest: no      # yes = يظهر في آخر الإصدارات
+summary:
+description:

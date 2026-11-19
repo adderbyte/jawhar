@@ -1,0 +1,7 @@
+# انسخ هذا المجلد إلى القسم المناسب وغيّر اسمه (حروف إنجليزية صغيرة وشرطات)
+# الملفات: image.jpg (1280x720), text.txt, article.pdf (optional)
+title:
+author:
+date: 2026-01-31      # YYYY-MM-DD
+topic:
+summary:

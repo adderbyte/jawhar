@@ -1,0 +1,4 @@
+# بيانات الاتصال
+email: name@example.com
+whatsapp: 000000000000
+phone: +000000000000
