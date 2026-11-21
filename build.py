@@ -3,20 +3,25 @@
 Usage:  python build.py            (public/index.html + public/content/ with images and PDFs only)
         python build.py --embed    (images inlined into public/index.html)
 Only public/ is published: build.py, template.html and the info.txt/text.txt files stay private."""
-import json, base64, sys, mimetypes, shutil
+import json, base64, sys, mimetypes, shutil, re
 from pathlib import Path
 ROOT = Path(__file__).parent; C = ROOT / 'content'; EMBED = '--embed' in sys.argv
 EXT = ('.jpg', '.jpeg', '.png', '.webp')
 
-def parse(p):                                   # info.txt: "key: value", "- item" lines, "#" comments
-    d, key = {}, None
+KEY = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)\s*:(.*)$')
+def parse(p):                                   # info.txt: "key: value", "- item" lines, "#" comments;
+    d, key, brk = {}, None, False               # lines after a "key:" line continue its value (blank line = new paragraph)
     for line in p.read_text(encoding='utf-8').splitlines():
         s = line.strip()
-        if not s or s.startswith('#'): continue
-        if s.startswith('-') and key and isinstance(d[key], list):
-            if s[1:].strip(): d[key].append(s[1:].strip())
-        elif ':' in s:
-            key, v = s.split(':', 1); key = key.strip(); v = v.split('  #')[0].strip(); d[key] = v if v else []
+        if s.startswith('#'): continue
+        m = KEY.match(s)
+        if m:
+            key, brk = m[1], False; v = m[2].split('  #')[0].strip(); d[key] = v if v else []
+        elif not s: brk = True
+        elif key and isinstance(d[key], list):
+            if s.startswith('-') and s[1:].strip(): d[key].append(s[1:].strip())
+        elif key:
+            d[key] = (d[key] + ('\n' if brk else ' ') + s) if d[key] else s; brk = False
     return d
 
 def src(f):

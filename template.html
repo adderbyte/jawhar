@@ -226,16 +226,19 @@ if(A[0]){
  $('#latestArts').innerHTML=A.slice(2).map(a=>`<a class="pub" href="#"><div><span class="tag">${E(a.topic)}</span><h3>${E(a.title)}</h3><div class="meta">${meta(a)}</div></div></a>`).join('');
 }
 /* publications */
-const ITEMS=[...D.books.map(b=>({...b,type:'book'})),...D.journals.map(j=>({...j,type:'journal'}))].sort((a,b)=>(b.year||0)-(a.year||0));
+const MON=d=>{try{return new Date(d+'-01T12:00:00').toLocaleDateString('ar-EG-u-nu-latn',{month:'long',year:'numeric'})}catch(e){return d}};
+const when=it=>{const d=(it.date||'').trim();return /^\d{4}-\d{2}/.test(d)?MON(d.slice(0,7)):/^\d{4}$/.test(d)?d:(it.year||'')};   /* date: 2025-10 -> أكتوبر 2025 ; year: 2025 still works */
+const key=it=>(it.date||((String(it.year||'').match(/\d{4}/)||[''])[0]));
+const ITEMS=[...D.books.map(b=>({...b,type:'book'})),...D.journals.map(j=>({...j,type:'journal'}))].sort((a,b)=>key(b).localeCompare(key(a)));
 const isL=it=>/^(yes|نعم|1|true)$/i.test(it.latest||'');
 const kind=it=>it.type=='book'?'كتاب':'مجلة';
 const TABS=[["latest","آخر الإصدارات"],["all","كل الإصدارات"],["book","الكتب"],["journal","المجلات"],["lib","مكتبة الإصدارات"]];
 let tab="latest";
-const card=it=>`<a class="pub" href="${it.pdf||'#'}">${slot(it.img,it.dir+'/cover.jpg','','غلاف 900×1200')}<div><span class="tag">${kind(it)} · ${E(it.year)}</span><h3>${E(it.title)}</h3><div class="meta">${E(it.author)}</div></div></a>`;
+const card=it=>`<a class="pub" href="${it.pdf||'#'}">${slot(it.img,it.dir+'/cover.jpg','','غلاف 900×1200')}<div><span class="tag">${kind(it)} · ${E(when(it))}</span><h3>${E(it.title)}</h3><div class="meta">${E(it.author)}</div></div></a>`;
 function pubs(){
  $('#tabs').innerHTML=TABS.map(([k,l])=>`<button role="tab" data-t="${k}" aria-selected="${k==tab}">${l}</button>`).join('');
  let out;
- if(tab=='lib') out=`<div class="lib">${ITEMS.map(it=>`<div class="row">${slot(it.img,it.dir+'/cover.jpg','','')}<div><span class="tag">${kind(it)} · ${E(it.year)}</span><h3>${E(it.title)}</h3><div class="meta" style="margin:0">${E(it.author)}</div></div><div class="btns"><a class="btn p" href="${it.pdf||'#'}" target="_blank" rel="noopener">قراءة</a><a class="btn" href="${it.pdf||'#'}" download>تحميل</a></div></div>`).join('')}</div>`;
+ if(tab=='lib') out=`<div class="lib">${ITEMS.map(it=>`<div class="row">${slot(it.img,it.dir+'/cover.jpg','','')}<div><span class="tag">${kind(it)} · ${E(when(it))}</span><h3>${E(it.title)}</h3><div class="meta" style="margin:0">${E(it.author)}</div></div><div class="btns"><a class="btn p" href="${it.pdf||'#'}" target="_blank" rel="noopener">قراءة</a><a class="btn" href="${it.pdf||'#'}" download>تحميل</a></div></div>`).join('')}</div>`;
  else out=`<div class="grid">${ITEMS.filter(it=>tab=='latest'?isL(it):tab=='all'?1:it.type==tab).map(card).join('')}</div>`;
  $('#pubOut').innerHTML=out;
  $('#tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{tab=b.dataset.t;pubs()});
