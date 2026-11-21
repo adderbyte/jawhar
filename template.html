@@ -118,7 +118,7 @@ document.querySelectorAll('.ph[data-img]').forEach(el=>{const u=D.site[el.datase
 const BN=D.site.banners||[];
 if(BN.length>1){const box=document.querySelector('.herobig');box.querySelectorAll('img').forEach(i=>i.remove());
  const sl=BN.map((s,i)=>{const m=document.createElement('img');m.src=s;m.alt='';m.style.cssText='transition:opacity 1s;opacity:'+(i?0:1);box.prepend(m);return m});
- if(!matchMedia('(prefers-reduced-motion: reduce)').matches){let n=0;setInterval(()=>{sl[n].style.opacity=0;n=(n+1)%sl.length;sl[n].style.opacity=1},5000)}}
+ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){let n=0;setInterval(()=>{sl[n].style.opacity=0;n=(n+1)%sl.length;sl[n].style.opacity=1},10000)}}
 /* articles */
 const A=D.articles, meta=a=>`${E(a.author)} · ${fmt(a.date)}`;
 if(A[0]){
