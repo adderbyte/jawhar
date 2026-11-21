@@ -61,6 +61,7 @@ def key(r):
     return r.get('date') or (m[0] if m else '')
 
 site = parse(C / 'site' / 'info.txt'); lg = find(C / 'site', 'logo'); site['logo'] = src(lg); site['logopath'] = rel(lg); site['banner'] = src(find(C / 'site', 'banner'))
+site['banners'] = [src(f) for f in (find(C / 'site', s) for s in ['banner'] + [f'banner-{i}' for i in range(2, 10)]) if f]   # banner, banner-2, banner-3 ... rotate automatically
 arts = sorted(items('maqalat', 'image', 'maqalat/', True), key=lambda r: r.get('date', ''), reverse=True)
 books = items('isdarat/kutub', 'cover', 'isdarat/kutub/', True); journals = items('isdarat/majallat', 'cover', 'isdarat/majallat/', True)
 for b in books: b['type'] = 'book'

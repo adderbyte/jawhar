@@ -114,6 +114,11 @@ const E=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>
 const slot=(src,path,cls,hint)=>`<div class="ph ${cls||''}">${src?`<img src="${src}" alt="" loading="lazy">`:''}<span><b>${E(path)}</b>${hint||''}</span></div>`;
 const fmt=d=>{try{return new Date(d+'T12:00:00').toLocaleDateString('ar-EG-u-nu-latn',{day:'numeric',month:'long',year:'numeric'})}catch(e){return d}};
 document.querySelectorAll('.ph[data-img]').forEach(el=>{const u=D.site[el.dataset.img];if(u){const i=document.createElement('img');i.src=u;i.alt='';el.prepend(i)}});
+/* hero banner: 2+ files (banner.jpg, banner-2.jpg, ...) cross-fade every 5 s */
+const BN=D.site.banners||[];
+if(BN.length>1){const box=document.querySelector('.herobig');box.querySelectorAll('img').forEach(i=>i.remove());
+ const sl=BN.map((s,i)=>{const m=document.createElement('img');m.src=s;m.alt='';m.style.cssText='transition:opacity 1s;opacity:'+(i?0:1);box.prepend(m);return m});
+ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){let n=0;setInterval(()=>{sl[n].style.opacity=0;n=(n+1)%sl.length;sl[n].style.opacity=1},5000)}}
 /* articles */
 const A=D.articles, meta=a=>`${E(a.author)} · ${fmt(a.date)}`;
 if(A[0]){
