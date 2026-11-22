@@ -1,4 +1,6 @@
 # بيانات الاتصال
-email: name@example.com
-whatsapp: 000000000000
-phone: +000000000000
+email: Jawharatoulssahara@gmail.com
+whatsapp: +22376860853
+phone: +22376860853
+telegram: https://t.me/yourchannel
+facebook: https://facebook.com/yourpage

@@ -37,7 +37,7 @@ THIS FILE IS GENERATED. Do not edit it by hand: edit the folders in content/ and
   <p>نشر الكتب والمقالات والمجلات المحكّمة، بإشراف أساتذة وباحثين وطلبة دكتوراه ودراسات عليا، لإحياء التراث الإفريقي وخدمة المعرفة.</p>
   <div class="btns"><a class="btn p" href="#publications">تصفح الإصدارات</a><a class="btn" href="#articles">آخر المقالات</a><a class="btn" href="#about">من نحن</a></div>
  </div>
- <div class="stats"><div><b>120+</b>مقالة</div><div><b>35</b>إصدارًا</div><div><b>40</b>باحثًا</div><div><b>12</b>عددًا من المجلة</div></div>
+ <div class="stats" id="stats"></div>
 </div></div>
 
 <section id="articles">
@@ -96,6 +96,7 @@ THIS FILE IS GENERATED. Do not edit it by hand: edit the folders in content/ and
 <section class="contact" id="contact">
  <div class="wrap">
   <div class="head"><div><h2>اتصل بنا</h2><p>للنشر أو التعاون العلمي أو الاستفسار عن الإصدارات والبرامج.</p></div></div>
+  <!--SOCIAL-->
   <div class="mail" id="contactList"></div>
  </div>
 </section>
@@ -103,6 +104,7 @@ THIS FILE IS GENERATED. Do not edit it by hand: edit the folders in content/ and
 
 <footer><div class="wrap">
  <span>© 2026 جوهرة الصحراء — جمعية جوهرة الصحراء لإحياء التراث الإفريقي</span>
+ <!--SOCIAL-->
  <ul><li><a href="#articles">المقالات</a></li><li><a href="#publications">الإصدارات</a></li><li><a href="#programs">برامجنا</a></li><li><a href="#authors">الباحثون</a></li><li><a href="#contact">اتصل بنا</a></li></ul>
 </div></footer>
 <button class="tg" id="guideBtn" aria-pressed="false">دليل الاستبدال</button>
@@ -118,7 +120,7 @@ document.querySelectorAll('.ph[data-img]').forEach(el=>{const u=D.site[el.datase
 const BN=D.site.banners||[];
 if(BN.length>1){const box=document.querySelector('.herobig');box.querySelectorAll('img').forEach(i=>i.remove());
  const sl=BN.map((s,i)=>{const m=document.createElement('img');m.src=s;m.alt='';m.style.cssText='transition:opacity 1s;opacity:'+(i?0:1);box.prepend(m);return m});
- if(!matchMedia('(prefers-reduced-motion: reduce)').matches){let n=0;setInterval(()=>{sl[n].style.opacity=0;n=(n+1)%sl.length;sl[n].style.opacity=1},10000)}}
+ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){let n=0;setInterval(()=>{sl[n].style.opacity=0;n=(n+1)%sl.length;sl[n].style.opacity=1},5000)}}
 /* articles */
 const A=D.articles, meta=a=>`${E(a.author)} · ${fmt(a.date)}`;
 if(A[0]){
@@ -150,9 +152,9 @@ document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click',()
 $('#progList').innerHTML=D.programs.map((p,i)=>`<article class="prog" id="prog-${i+1}">${slot(p.img,p.dir+'/image.jpg','','1200×600')}<div class="b"><span class="no">البرنامج ${i+1}</span><h3>${E(p.title)}</h3><p>${E(p.description)}</p><a class="btn" href="#programs">تفاصيل البرنامج</a></div></article>`).join('');
 $('#bios').innerHTML=D.authors.map(p=>`<article class="person">${slot(p.img,p.dir+'/photo.jpg','','400×400')}<h3>${E(p.name)}</h3><small>${E(p.role)}</small><p>${E(p.bio)}</p><details><summary>السيرة والمؤلفات</summary><ul>${[].concat(p.works||[]).map(w=>`<li>${E(w)}</li>`).join('')}</ul></details></article>`).join('');
 $('#teamList').innerHTML=D.team.map(t=>`<div>${slot(t.img,t.dir+'/photo.jpg','','')}<div style="padding:0;border:0;background:none"><h4>${E(t.name)}</h4><span class="muted sm">${E(t.position)}</span></div></div>`).join('');
+$('#stats').innerHTML=[[D.articles.length,'مقالات'],[D.books.length,'كتب'],[D.journals.length,'أعداد المجلة'],[D.authors.length,'باحثون']].map(([n,l])=>`<div><b>${n}</b>${l}</div>`).join('');   /* counts come from the folders */
 const S=D.site, CONTACT=[];
 if(S.email)CONTACT.push({label:S.email,href:'mailto:'+S.email});
-if(S.whatsapp)CONTACT.push({label:'WhatsApp +'+S.whatsapp.replace(/\D/g,''),href:'https://wa.me/'+S.whatsapp.replace(/\D/g,'')});
 if(S.phone)CONTACT.push({label:'Tel '+S.phone,href:'tel:'+S.phone.replace(/\s/g,'')});
 $('#contactList').innerHTML=CONTACT.map(c=>`<a href="${E(c.href)}">${E(c.label)}</a>`).join('');
 $('#guideBtn').onclick=e=>{const on=document.body.classList.toggle('guide');e.target.setAttribute('aria-pressed',on)};

@@ -115,3 +115,8 @@ footer ul{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:0;padd
 .rel .ph{aspect-ratio:16/9;border-radius:8px;margin-bottom:10px}.rel h3{font-size:20px}.rel a:hover h3{color:var(--accent)}
 .row h3 a:hover{color:var(--accent)}
 @media(max-width:700px){.bookpage{grid-template-columns:1fr}.bookpage .ph{max-width:240px}}
+/* social icons */
+.social{display:flex;gap:10px;flex-wrap:wrap}
+.social a{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;transition:transform .15s}
+.social a:hover{transform:translateY(-2px)}.social svg{width:22px;height:22px;fill:currentColor}
+.contact .social{margin-bottom:20px}footer .social a{width:34px;height:34px}footer .social svg{width:17px;height:17px}
