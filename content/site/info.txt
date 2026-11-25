@@ -5,6 +5,6 @@ url: https://jawharatoulssahara.com
 
 # بيانات الاتصال
 email: Jawharatoulssahara@gmail.com
-whatsapp: +22376860853
-phone: +22376860853
+whatsapp: +22376860852
+phone: +22376860852
 telegram: https://t.me/manchouratJawharatelssahra
