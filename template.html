@@ -29,7 +29,7 @@ THIS FILE IS GENERATED. Do not edit it by hand: edit the folders in content/ and
   <button class="burger" aria-label="القائمة" onclick="document.getElementById('nav').classList.toggle('open')">القائمة</button>
   <nav id="nav" aria-label="القائمة الرئيسية"><ul>
    <li><a href="#top">الرئيسية</a></li>
-   <li><span class="t" tabindex="0">المقالات</span><div class="sub"><a href="#articles">مقالات جوهرة الصحراء</a><a href="#latest-articles">آخر المقالات</a></div></li>
+   <li><span class="t" tabindex="0">المقالات</span><div class="sub"><a href="#articles">مقالات جوهرة الصحراء</a></div></li>
    <li><span class="t" tabindex="0">الإصدارات</span><div class="sub"><a href="#publications" data-tab="all">إصدارات جوهرة الصحراء</a><a href="#publications" data-tab="latest">آخر الإصدارات</a><a href="#publications" data-tab="book">الكتب</a><a href="#publications" data-tab="journal">المجلات</a><a href="#publications" data-tab="lib">مكتبة الإصدارات</a></div></li>
    <li><span class="t" tabindex="0">برامجنا</span><div class="sub"><a href="#prog-1">ذاكرة الإمبراطوريات الإفريقية</a><a href="#prog-2">حكايات جوهرة الصحراء</a></div></li>
    <li><span class="t" tabindex="0">كتابنا وباحثونا</span><div class="sub"><a href="#authors">التعريف بالكتاب والباحثين</a><a href="#authors">السير الذاتية</a><a href="#authors">المؤلفات والمشاركات المنشورة</a></div></li>
@@ -55,8 +55,6 @@ THIS FILE IS GENERATED. Do not edit it by hand: edit the folders in content/ and
  <div class="wrap">
   <div class="head"><div><h2>مقالات جوهرة الصحراء</h2><p>دراسات ومقالات علمية في التاريخ والتراث والفكر، يكتبها باحثو المنصة وضيوفها.</p></div></div>
   <div class="arts"><div id="featArt"></div><div class="al" id="artList" style="align-content:start"></div></div>
-  <h3 class="sub-h" id="latest-articles">آخر المقالات</h3>
-  <div class="grid agrid" id="latestArts"></div>
  </div>
 </section>
 
@@ -122,7 +120,6 @@ THIS FILE IS GENERATED. Do not edit it by hand: edit the folders in content/ and
  <ul class="flinks"><li><a href="#articles">المقالات</a></li><li><a href="#publications">الإصدارات</a></li><li><a href="#programs">برامجنا</a></li><li><a href="#authors">الباحثون</a></li><li><a href="#contact">اتصل بنا</a></li></ul>
  <p class="copy">© <span id="yr">2026</span> جوهرة الصحراء — جمعية جوهرة الصحراء لإحياء التراث الإفريقي</p>
 </div></footer>
-<button class="tg" id="guideBtn" aria-pressed="false">دليل الاستبدال</button>
 
 <script>
 const D = __DATA__;   /* generated from content/ by build.py */
@@ -141,7 +138,6 @@ const A=D.articles, meta=a=>`${E(a.author)} · ${fmt(a.date)}`;
 if(A[0]){
  $('#featArt').innerHTML=`<a class="feat" href="${A[0].url}">${slot(A[0].img,A[0].dir+'/image.jpg','','1280×720')}<div class="b"><span class="tag">${E(A[0].topic)}</span><h3>${E(A[0].title)}</h3><p>${E(A[0].summary)}</p><div class="meta">${meta(A[0])}</div></div></a>`;
  $('#artList').innerHTML=A.slice(1,5).map(a=>`<a href="${a.url}">${slot(a.img,a.dir+'/image.jpg','','')}<div><span class="tag">${E(a.topic)}</span><h3>${E(a.title)}</h3><div class="meta">${meta(a)}</div></div></a>`).join('');
- $('#latestArts').innerHTML=A.slice(4).map(a=>`<a class="acard" href="${a.url}">${slot(a.img,a.dir+'/image.jpg','','1280×720')}<div class="b"><span class="tag">${E(a.topic)}</span><h3>${E(a.title)}</h3><div class="meta">${meta(a)}</div><span class="more">اقرأ المزيد</span></div></a>`).join('');
 }
 /* publications */
 const MON=d=>{try{return new Date(d+'-01T12:00:00').toLocaleDateString('ar-EG-u-nu-latn',{month:'long',year:'numeric'})}catch(e){return d}};
@@ -187,7 +183,6 @@ if(S.email)CONTACT.push({ic:'mail',kind:'البريد الإلكتروني',labe
 if(S.phone)CONTACT.push({ic:'phone',kind:'الهاتف',label:S.phone,href:'tel:'+S.phone.replace(/\s/g,'')});
 $('#contactList').innerHTML=CONTACT.map(c=>`<a class="cc" href="${E(c.href)}"><span class="ci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${IC[c.ic]}"/></svg></span><span><small>${c.kind}</small><b>${E(c.label)}</b></span></a>`).join('');
 if(S.email){const b=$('#ctaBtn');b.href='mailto:'+S.email+'?subject='+encodeURIComponent('طلب نشر بحث');b.hidden=false}
-$('#guideBtn').onclick=e=>{const on=document.body.classList.toggle('guide');e.target.setAttribute('aria-pressed',on)};
 document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>$('#nav').classList.remove('open')));
 $('#yr').textContent=new Date().getFullYear();
 </script>
