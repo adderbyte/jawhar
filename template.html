@@ -105,9 +105,11 @@ THIS FILE IS GENERATED. Do not edit it by hand: edit the folders in content/ and
 </main>
 
 <footer><div class="wrap">
- <span>© 2026 جوهرة الصحراء — جمعية جوهرة الصحراء لإحياء التراث الإفريقي</span>
- <!--SOCIAL-->
- <ul><li><a href="#articles">المقالات</a></li><li><a href="#publications">الإصدارات</a></li><li><a href="#programs">برامجنا</a></li><li><a href="#authors">الباحثون</a></li><li><a href="#contact">اتصل بنا</a></li></ul>
+ <div class="fbrand"><a class="logo" href="#top"><span class="ph mark" data-img="logo"></span>جوهرة الصحراء</a>
+  <p>منصة علمية للنشر والتراث الإفريقي، تصدر عن جمعية جوهرة الصحراء لإحياء التراث الإفريقي.</p>
+  <!--SOCIAL--></div>
+ <ul class="flinks"><li><a href="#articles">المقالات</a></li><li><a href="#publications">الإصدارات</a></li><li><a href="#programs">برامجنا</a></li><li><a href="#authors">الباحثون</a></li><li><a href="#contact">اتصل بنا</a></li></ul>
+ <p class="copy">© 2026 جوهرة الصحراء — جمعية جوهرة الصحراء لإحياء التراث الإفريقي</p>
 </div></footer>
 <button class="tg" id="guideBtn" aria-pressed="false">دليل الاستبدال</button>
 
@@ -143,8 +145,10 @@ const card=it=>`<a class="pub" href="${it.url}">${slot(it.img,it.dir+'/cover.jpg
 function pubs(){
  $('#tabs').innerHTML=TABS.map(([k,l])=>`<button role="tab" data-t="${k}" aria-selected="${k==tab}">${l}</button>`).join('');
  let out;
- if(tab=='lib') out=`<div class="lib">${ITEMS.map(it=>`<div class="row">${slot(it.img,it.dir+'/cover.jpg','','')}<div><span class="tag">${kind(it)} · ${E(when(it))}</span><h3><a href="${it.url}">${E(it.title)}</a></h3><div class="meta" style="margin:0">${E(it.author)}</div></div><div class="btns"><a class="btn p" href="${it.pdf||'#'}" target="_blank" rel="noopener">قراءة</a><a class="btn" href="${it.pdf||'#'}" download>تحميل</a></div></div>`).join('')}</div>`;
- else out=`<div class="grid">${ITEMS.filter(it=>tab=='latest'?isL(it):tab=='all'?1:it.type==tab).map(card).join('')}</div>`;
+ if(tab=='lib'&&!ITEMS.length) out='<p class="empty">لا توجد إصدارات بعد.</p>';
+ else if(tab=='lib') out=`<div class="lib">${ITEMS.map(it=>`<div class="row">${slot(it.img,it.dir+'/cover.jpg','','')}<div><span class="tag">${kind(it)} · ${E(when(it))}</span><h3><a href="${it.url}">${E(it.title)}</a></h3><div class="meta" style="margin:0">${E(it.author)}</div></div><div class="btns"><a class="btn p" href="${it.pdf||'#'}" target="_blank" rel="noopener">قراءة</a><a class="btn" href="${it.pdf||'#'}" download>تحميل</a></div></div>`).join('')}</div>`;
+ else{let L=ITEMS.filter(it=>tab=='latest'?isL(it):tab=='all'?1:it.type==tab);if(tab=='latest'&&!L.length)L=ITEMS.slice(0,8);   /* no item marked latest: show the newest */
+  out=L.length?`<div class="grid">${L.map(card).join('')}</div>`:'<p class="empty">لا توجد إصدارات في هذا القسم بعد.</p>'}
  $('#pubOut').innerHTML=out;
  $('#tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{tab=b.dataset.t;pubs()});
 }
@@ -155,7 +159,12 @@ $('#progList').innerHTML=D.programs.map((p,i)=>`<article class="prog" id="prog-$
 const ini=n=>String(n||'').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('');
 $('#bios').innerHTML=D.authors.map(p=>{const w=[].concat(p.works||[]);return `<article class="person"><div class="avatar">${p.img?`<img src="${p.img}" alt="${E(p.name)}" loading="lazy">`:`<span>${E(ini(p.name))}</span>`}</div><h3>${E(p.name)}</h3>${p.role?`<span class="role">${E(p.role)}</span>`:''}${p.bio?`<p>${E(p.bio)}</p>`:''}${w.length?`<details><summary>السيرة والمؤلفات <span class="cnt">${w.length}</span></summary><ul>${w.map(x=>`<li>${E(x)}</li>`).join('')}</ul></details>`:''}</article>`}).join('');
 $('#teamList').innerHTML=D.team.map(t=>`<article class="member"><div class="avatar">${t.img?`<img src="${t.img}" alt="${E(t.name)}" loading="lazy">`:`<span>${E(ini(t.name))}</span>`}</div><h4>${E(t.name)}</h4><span class="role">${E(t.position)}</span>${t.bio?`<p>${E(t.bio)}</p>`:''}${t.email?`<a class="mlink" href="mailto:${E(t.email)}">${E(t.email)}</a>`:''}</article>`).join('');
-$('#stats').innerHTML=[[D.articles.length,'مقالات'],[D.books.length,'كتب'],[D.journals.length,'أعداد المجلة'],[D.authors.length,'باحثون']].map(([n,l])=>`<div><b>${n}</b>${l}</div>`).join('');   /* counts come from the folders */
+$('#stats').innerHTML=[[D.articles.length,'مقالات'],[D.books.length,'كتب'],[D.journals.length,'أعداد المجلة'],[D.authors.length,'باحثون']].map(([n,l])=>`<div><b data-n="${n}">${n}</b>${l}</div>`).join('');   /* counts come from the folders */
+/* stats count up once when scrolled into view */
+if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);const el=e.target,to=+el.dataset.n,t0=performance.now();
+  (function f(t){const p=Math.min((t-t0)/1100,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)}),{threshold:.6});
+ document.querySelectorAll('#stats b[data-n]').forEach(el=>{if(+el.dataset.n>0){el.textContent=0;io.observe(el)}})}
 const S=D.site, CONTACT=[];
 const IC={mail:'M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4.2l-8 5-8-5V6l8 5 8-5v2.2z',phone:'M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.6 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.6 3.6a1 1 0 01-.25 1z'};
 if(S.email)CONTACT.push({ic:'mail',kind:'البريد الإلكتروني',label:S.email,href:'mailto:'+S.email});

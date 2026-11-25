@@ -185,3 +185,17 @@ footer ul{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:0;padd
 .cc small{display:block;font-size:13px;opacity:.8;line-height:1.5}.cc b{display:block;font-weight:600;font-size:18px;direction:ltr;text-align:right;word-break:break-all}
 @media(max-width:860px){.cx{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.person,.acard,.mail a.cc,.acard .more:after{transition:none}}
+
+/* === publications / stats / footer === */
+.pub .ph{transition:transform .25s,box-shadow .25s}
+.pub:hover .ph{transform:translateY(-6px);box-shadow:0 16px 28px rgba(10,20,40,.26)}
+.row{transition:background .2s}.row:hover{background:var(--soft)}
+.empty{text-align:center;color:var(--muted);padding:40px 0;margin:0;border:1px dashed var(--line);border-radius:12px}
+.stats b{font-variant-numeric:tabular-nums}
+footer{padding:44px 0 24px}
+footer .fbrand{max-width:420px}footer .fbrand .logo{font-size:22px}
+footer .fbrand p{margin:10px 0 16px;line-height:1.8}
+footer .mark:empty{display:none}
+footer .flinks{flex-direction:column;gap:4px;align-self:flex-start}footer .flinks a:hover{color:var(--accent)}
+footer .copy{flex-basis:100%;margin:12px 0 0;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px}
+@media(prefers-reduced-motion:reduce){.pub .ph,.row{transition:none}}
