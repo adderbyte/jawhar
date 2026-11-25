@@ -166,7 +166,7 @@ function pubs(){
 pubs();
 document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click',()=>{tab=a.dataset.tab;pubs()}));
 /* programs, people, contact */
-$('#progList').innerHTML=D.programs.map((p,i)=>`<article class="prog" id="prog-${i+1}">${slot(p.img,p.dir+'/image.jpg','','1200×600')}<div class="b"><span class="no">البرنامج ${i+1}</span><h3>${E(p.title)}</h3><p>${E(p.description)}</p><a class="btn" href="#programs">تفاصيل البرنامج</a></div></article>`).join('');
+$('#progList').innerHTML=D.programs.map((p,i)=>`<article class="prog" id="prog-${i+1}">${slot(p.img,p.dir+'/image.jpg','','1200×600')}<div class="b"><span class="no">البرنامج ${i+1}</span><h3>${E(p.title)}</h3><p>${E(p.description)}</p></div></article>`).join('');
 const ini=n=>String(n||'').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('');
 /* author card: the + toggle only exists when the author has a seerah and/or works (books) */
 $('#bios').innerHTML=D.authors.map(p=>{
