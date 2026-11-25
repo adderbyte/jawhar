@@ -141,7 +141,7 @@ const A=D.articles, meta=a=>`${E(a.author)} · ${fmt(a.date)}`;
 if(A[0]){
  $('#featArt').innerHTML=`<a class="feat" href="${A[0].url}">${slot(A[0].img,A[0].dir+'/image.jpg','','1280×720')}<div class="b"><span class="tag">${E(A[0].topic)}</span><h3>${E(A[0].title)}</h3><p>${E(A[0].summary)}</p><div class="meta">${meta(A[0])}</div></div></a>`;
  $('#artList').innerHTML=A.slice(1,5).map(a=>`<a href="${a.url}">${slot(a.img,a.dir+'/image.jpg','','')}<div><span class="tag">${E(a.topic)}</span><h3>${E(a.title)}</h3><div class="meta">${meta(a)}</div></div></a>`).join('');
- $('#latestArts').innerHTML=A.slice(2).map(a=>`<a class="acard" href="${a.url}">${slot(a.img,a.dir+'/image.jpg','','1280×720')}<div class="b"><span class="tag">${E(a.topic)}</span><h3>${E(a.title)}</h3><div class="meta">${meta(a)}</div><span class="more">اقرأ المزيد</span></div></a>`).join('');
+ $('#latestArts').innerHTML=A.slice(4).map(a=>`<a class="acard" href="${a.url}">${slot(a.img,a.dir+'/image.jpg','','1280×720')}<div class="b"><span class="tag">${E(a.topic)}</span><h3>${E(a.title)}</h3><div class="meta">${meta(a)}</div><span class="more">اقرأ المزيد</span></div></a>`).join('');
 }
 /* publications */
 const MON=d=>{try{return new Date(d+'-01T12:00:00').toLocaleDateString('ar-EG-u-nu-latn',{month:'long',year:'numeric'})}catch(e){return d}};
