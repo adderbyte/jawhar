@@ -199,3 +199,9 @@ footer .mark:empty{display:none}
 footer .flinks{flex-direction:column;gap:4px;align-self:flex-start}footer .flinks a:hover{color:var(--accent)}
 footer .copy{flex-basis:100%;margin:12px 0 0;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px}
 @media(prefers-reduced-motion:reduce){.pub .ph,.row{transition:none}}
+
+/* author toggle body */
+.person .dbody{max-height:320px;overflow:auto;margin-top:8px;padding-inline-end:4px}
+.person .dbody p{font-size:14.5px;line-height:1.9;margin:0 0 10px;text-align:right}
+.person .dbody h5{font:700 16px Amiri,serif;color:var(--brand);margin:12px 0 4px}
+.person .dbody ul{margin:4px 0 0}

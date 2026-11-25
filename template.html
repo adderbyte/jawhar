@@ -157,7 +157,12 @@ document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click',()
 /* programs, people, contact */
 $('#progList').innerHTML=D.programs.map((p,i)=>`<article class="prog" id="prog-${i+1}">${slot(p.img,p.dir+'/image.jpg','','1200×600')}<div class="b"><span class="no">البرنامج ${i+1}</span><h3>${E(p.title)}</h3><p>${E(p.description)}</p><a class="btn" href="#programs">تفاصيل البرنامج</a></div></article>`).join('');
 const ini=n=>String(n||'').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('');
-$('#bios').innerHTML=D.authors.map(p=>{const w=[].concat(p.works||[]);return `<article class="person"><div class="avatar">${p.img?`<img src="${p.img}" alt="${E(p.name)}" loading="lazy">`:`<span>${E(ini(p.name))}</span>`}</div><h3>${E(p.name)}</h3>${p.role?`<span class="role">${E(p.role)}</span>`:''}${p.bio?`<p>${E(p.bio)}</p>`:''}${w.length?`<details><summary>السيرة والمؤلفات <span class="cnt">${w.length}</span></summary><ul>${w.map(x=>`<li>${E(x)}</li>`).join('')}</ul></details>`:''}</article>`}).join('');
+/* author card: the + toggle only exists when the author has a seerah and/or works (books) */
+$('#bios').innerHTML=D.authors.map(p=>{
+ const w=[].concat(p.works||[]).filter(Boolean), sr=[].concat(p.seerah||[]).join('\n').split(/\n+/).map(x=>x.trim()).filter(Boolean);
+ const lbl=sr.length&&w.length?'السيرة والمؤلفات':sr.length?'السيرة الذاتية':'المؤلفات';
+ const more=(sr.length||w.length)?`<details><summary>${lbl}${w.length?` <span class="cnt">${w.length}</span>`:''}</summary><div class="dbody">${sr.map(x=>`<p>${E(x)}</p>`).join('')}${w.length?`${sr.length?'<h5>المؤلفات</h5>':''}<ul>${w.map(x=>`<li>${E(x)}</li>`).join('')}</ul>`:''}</div></details>`:'';
+ return `<article class="person"><div class="avatar">${p.img?`<img src="${p.img}" alt="${E(p.name)}" loading="lazy">`:`<span>${E(ini(p.name))}</span>`}</div><h3>${E(p.name)}</h3>${p.role?`<span class="role">${E(p.role)}</span>`:''}${p.bio?`<p>${E(p.bio)}</p>`:''}${more}</article>`}).join('');
 $('#teamList').innerHTML=D.team.map(t=>`<article class="member"><div class="avatar">${t.img?`<img src="${t.img}" alt="${E(t.name)}" loading="lazy">`:`<span>${E(ini(t.name))}</span>`}</div><h4>${E(t.name)}</h4><span class="role">${E(t.position)}</span>${t.bio?`<p>${E(t.bio)}</p>`:''}${t.email?`<a class="mlink" href="mailto:${E(t.email)}">${E(t.email)}</a>`:''}</article>`).join('');
 $('#stats').innerHTML=[[D.articles.length,'مقالات'],[D.books.length,'كتب'],[D.journals.length,'أعداد المجلة'],[D.authors.length,'باحثون']].map(([n,l])=>`<div><b data-n="${n}">${n}</b>${l}</div>`).join('');   /* counts come from the folders */
 /* stats count up once when scrolled into view */
