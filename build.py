@@ -87,7 +87,13 @@ SOCIAL = ''.join(f'<a href="{esc(u)}" target="_blank" rel="noopener" aria-label=
                  for n, (lab, col, base, path) in ICONS.items() for u in [social_link(n, base)] if u)
 SOCIAL = f'<div class="social">{SOCIAL}</div>' if SOCIAL else ''
 tpl = tpl.replace('<!--SOCIAL-->', SOCIAL)
-html_out = tpl.replace('__DATA__', json.dumps(data, ensure_ascii=False).replace('</', '<\\/'))
+home_title = site.get('title') or 'جوهرة الصحراء | منصة علمية للنشر والتراث الإفريقي'
+home_desc = site.get('description') or 'منصة علمية للنشر والتراث الإفريقي: كتب ومقالات ومجلات محكّمة، بإشراف أساتذة وباحثين، لإحياء التراث الإفريقي وخدمة المعرفة.'
+home_img = site['banner'] or site['logo']
+home_url = site.get('url', '')
+html_out = (tpl.replace('__TITLE__', esc(home_title)).replace('__DESC__', esc(home_desc))
+            .replace('__IMAGE__', esc(home_img)).replace('__URL__', esc(home_url)))
+html_out = html_out.replace('__DATA__', json.dumps(data, ensure_ascii=False).replace('</', '<\\/'))
 HEADER = re.search(r'<header>.*?</header>', tpl, re.S)[0]; FOOTER = re.search(r'<footer>.*?</footer>', tpl, re.S)[0]
 
 BLANK = r'\n\s*\n'; NL = r'\n'
@@ -101,8 +107,9 @@ def page(r, title, desc, body):
     fix = lambda s: re.sub(r'href="#([^"]*)"', lambda m: f'href="{p}index.html#{m[1]}"', s)
     mark = f'<span class="ph mark"><img src="{p}{site["logopath"]}" alt=""></span>' if site['logopath'] else '<span class="ph mark"></span>'
     h = fix(HEADER).replace('<span class="ph mark" data-img="logo"></span>', mark)
+    f = fix(FOOTER).replace('<span class="ph mark" data-img="logo"></span>', mark)
     o = (detail.replace('{{PREFIX}}', p).replace('{{TITLE}}', esc(title)).replace('{{DESC}}', esc(desc))
-         .replace('{{HEADER}}', h).replace('{{FOOTER}}', fix(FOOTER)).replace('{{BODY}}', body.replace('{{P}}', p)))
+         .replace('{{HEADER}}', h).replace('{{FOOTER}}', f).replace('{{BODY}}', body.replace('{{P}}', p)))
     d = OUT / r['url']; d.mkdir(parents=True, exist_ok=True); (d / 'index.html').write_text(o, encoding='utf-8')
 
 def article_page(r):
