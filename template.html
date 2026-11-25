@@ -120,7 +120,7 @@ THIS FILE IS GENERATED. Do not edit it by hand: edit the folders in content/ and
   <p>منصة علمية للنشر والتراث الإفريقي، تصدر عن جمعية جوهرة الصحراء لإحياء التراث الإفريقي.</p>
   <!--SOCIAL--></div>
  <ul class="flinks"><li><a href="#articles">المقالات</a></li><li><a href="#publications">الإصدارات</a></li><li><a href="#programs">برامجنا</a></li><li><a href="#authors">الباحثون</a></li><li><a href="#contact">اتصل بنا</a></li></ul>
- <p class="copy">© 2026 جوهرة الصحراء — جمعية جوهرة الصحراء لإحياء التراث الإفريقي</p>
+ <p class="copy">© <span id="yr">2026</span> جوهرة الصحراء — جمعية جوهرة الصحراء لإحياء التراث الإفريقي</p>
 </div></footer>
 <button class="tg" id="guideBtn" aria-pressed="false">دليل الاستبدال</button>
 
@@ -189,6 +189,7 @@ $('#contactList').innerHTML=CONTACT.map(c=>`<a class="cc" href="${E(c.href)}"><s
 if(S.email){const b=$('#ctaBtn');b.href='mailto:'+S.email+'?subject='+encodeURIComponent('طلب نشر بحث');b.hidden=false}
 $('#guideBtn').onclick=e=>{const on=document.body.classList.toggle('guide');e.target.setAttribute('aria-pressed',on)};
 document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>$('#nav').classList.remove('open')));
+$('#yr').textContent=new Date().getFullYear();
 </script>
 </body>
 </html>
