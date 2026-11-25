@@ -75,20 +75,20 @@ THIS FILE IS GENERATED. Do not edit it by hand: edit the folders in content/ and
  <div class="wrap">
   <div class="head"><div><h2>عن جوهرة الصحراء</h2></div></div>
   <div class="about">
-   <div><h3 class="sub-h" style="margin-top:0">من نحن؟</h3>
-    <p>جوهرة الصحراء منصة علمية تُعنى بنشر الكتب والمقالات والمجلات، وتصدر عن جمعية جوهرة الصحراء لإحياء التراث الإفريقي.</p>
+   <div class="who"><span class="eyebrow">تعريف</span><h3 class="sub-h" style="margin-top:0">من نحن؟</h3>
+    <p class="lede">جوهرة الصحراء منصة علمية تُعنى بنشر الكتب والمقالات والمجلات، وتصدر عن جمعية جوهرة الصحراء لإحياء التراث الإفريقي.</p>
     <p>يشرف عليها أساتذة جامعيون وباحثون وطلبة دكتوراه ودراسات عليا، وتجمع بين الدقة العلمية وسهولة الوصول إلى المعرفة.</p>
     <p class="sm">نصوص تمهيدية قابلة للتعديل بالنص المعتمد.</p></div>
-   <div><h3 class="sub-h" style="margin-top:0" id="fields">مجالات العمل</h3>
+   <div><span class="eyebrow">تخصصاتنا</span><h3 class="sub-h" style="margin-top:0" id="fields">مجالات العمل</h3>
     <div class="chips"><span>المخطوطات والتحقيق</span><span>التاريخ الإفريقي</span><span>العلوم الشرعية</span><span>اللغة والأدب</span><span>الحضارة والفكر</span><span>النشر العلمي</span></div></div>
   </div>
-  <h3 class="sub-h" id="vision">الرؤية والرسالة والأهداف</h3>
+  <h3 class="sub-h center" id="vision"><span class="eyebrow">ما نسعى إليه</span>الرؤية والرسالة والأهداف</h3>
   <div class="trio">
-   <div><h4>الرؤية</h4><ul><li>منصة رائدة في نشر التراث الإفريقي علميًا.</li></ul></div>
-   <div><h4>الرسالة</h4><ul><li>نشر معرفة موثوقة ومتاحة بإشراف باحثين متخصصين.</li></ul></div>
-   <div><h4>الأهداف</h4><ul><li>صون المخطوطات وإتاحتها.</li><li>تأهيل الباحثين الشباب.</li><li>توسيع النشر العلمي.</li></ul></div>
+   <div class="v1"><i class="no">01</i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C6 5 2.5 12 2.5 12S6 19 12 19s9.5-7 9.5-7S18 5 12 5zm0 11.2a4.2 4.2 0 110-8.4 4.2 4.2 0 010 8.4zm0-6.4a2.2 2.2 0 100 4.4 2.2 2.2 0 000-4.4z"/></svg><h4>الرؤية</h4><ul><li>منصة رائدة في نشر التراث الإفريقي علميًا.</li></ul></div>
+   <div class="v2"><i class="no">02</i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.1 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><h4>الرسالة</h4><ul><li>نشر معرفة موثوقة ومتاحة بإشراف باحثين متخصصين.</li></ul></div>
+   <div class="v3"><i class="no">03</i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3a7 7 0 110 14 7 7 0 010-14zm0 3a4 4 0 100 8 4 4 0 000-8zm0 2.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg><h4>الأهداف</h4><ul><li>صون المخطوطات وإتاحتها.</li><li>تأهيل الباحثين الشباب.</li><li>توسيع النشر العلمي.</li></ul></div>
   </div>
-  <h3 class="sub-h" id="team">فريق العمل</h3>
+  <div class="head team-head" id="team"><div><span class="eyebrow">من يقف خلف المنصة</span><h2>فريق العمل</h2><p>نخبة من الباحثين والمتخصصين يجمعهم الشغف بخدمة التراث الإفريقي.</p></div></div>
   <div class="team" id="teamList"></div>
  </div>
 </section>
@@ -151,7 +151,8 @@ document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click',()
 /* programs, people, contact */
 $('#progList').innerHTML=D.programs.map((p,i)=>`<article class="prog" id="prog-${i+1}">${slot(p.img,p.dir+'/image.jpg','','1200×600')}<div class="b"><span class="no">البرنامج ${i+1}</span><h3>${E(p.title)}</h3><p>${E(p.description)}</p><a class="btn" href="#programs">تفاصيل البرنامج</a></div></article>`).join('');
 $('#bios').innerHTML=D.authors.map(p=>`<article class="person">${slot(p.img,p.dir+'/photo.jpg','','400×400')}<h3>${E(p.name)}</h3><small>${E(p.role)}</small><p>${E(p.bio)}</p><details><summary>السيرة والمؤلفات</summary><ul>${[].concat(p.works||[]).map(w=>`<li>${E(w)}</li>`).join('')}</ul></details></article>`).join('');
-$('#teamList').innerHTML=D.team.map(t=>`<div>${slot(t.img,t.dir+'/photo.jpg','','')}<div style="padding:0;border:0;background:none"><h4>${E(t.name)}</h4><span class="muted sm">${E(t.position)}</span></div></div>`).join('');
+const ini=n=>String(n||'').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('');
+$('#teamList').innerHTML=D.team.map(t=>`<article class="member"><div class="avatar">${t.img?`<img src="${t.img}" alt="${E(t.name)}" loading="lazy">`:`<span>${E(ini(t.name))}</span>`}</div><h4>${E(t.name)}</h4><span class="role">${E(t.position)}</span>${t.bio?`<p>${E(t.bio)}</p>`:''}${t.email?`<a class="mlink" href="mailto:${E(t.email)}">${E(t.email)}</a>`:''}</article>`).join('');
 $('#stats').innerHTML=[[D.articles.length,'مقالات'],[D.books.length,'كتب'],[D.journals.length,'أعداد المجلة'],[D.authors.length,'باحثون']].map(([n,l])=>`<div><b>${n}</b>${l}</div>`).join('');   /* counts come from the folders */
 const S=D.site, CONTACT=[];
 if(S.email)CONTACT.push({label:S.email,href:'mailto:'+S.email});
